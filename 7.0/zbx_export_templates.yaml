@@ -1,0 +1,52 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: 300e561d0bd64be29b922ebf20f218e4
+      template: 'Debian Updates check'
+      name: 'Debian Updates check'
+      description: |
+        Template for Zabbix to check if in Debian based OS updates are available.
+        
+        Add user parameters to Agent config is required.
+        
+        UserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst
+        UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security
+      groups:
+        - name: Templates
+      items:
+        - uuid: 6cf38624d40d4d248238531d48778768
+          name: 'Updates available'
+          key: ubuntu_updates.package
+          value_type: FLOAT
+          triggers:
+            - uuid: c746feebdf004dafbbbd9e2ec1a14d9e
+              expression: 'abs(last(/Debian Updates check/ubuntu_updates.package))>0'
+              name: 'Updates available'
+              priority: INFO
+        - uuid: c94ec880091e4e76bd5b9f9961b19333
+          name: 'Security Updates available'
+          key: ubuntu_updates.security
+          value_type: FLOAT
+          triggers:
+            - uuid: 777e69742fa0435db4e459127cbd6264
+              expression: 'abs(last(/Debian Updates check/ubuntu_updates.security))>0'
+              name: 'Security Updates available'
+              priority: INFO
+  graphs:
+    - uuid: 01fa78845aef4084831f36993f3bddf0
+      name: 'Linux Updates: Number of updates'
+      graph_items:
+        - color: F63100
+          calc_fnc: ALL
+          item:
+            host: 'Debian Updates check'
+            key: ubuntu_updates.package
+        - sortorder: '1'
+          color: 199C0D
+          calc_fnc: ALL
+          item:
+            host: 'Debian Updates check'
+            key: ubuntu_updates.security
