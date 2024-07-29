@@ -1,4 +1,4 @@
-# Debain Updates for Zabbix
+# Debain Updates check for Zabbix
 Template for Zabbix to check if in Debian based OS updates are available.
 
 ## Configuration
