@@ -27,12 +27,12 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                 <item>
                     <uuid>6cf38624d40d4d248238531d48778768</uuid>
                     <name>Updates available</name>
-                    <key>ubuntu_updates.package</key>
+                    <key>debian_updates.package</key>
                     <value_type>FLOAT</value_type>
                     <triggers>
                         <trigger>
                             <uuid>c746feebdf004dafbbbd9e2ec1a14d9e</uuid>
-                            <expression>abs(last(/Debian Updates check/ubuntu_updates.package))&gt;0</expression>
+                            <expression>abs(last(/Debian Updates check/debian_updates.package))&gt;0</expression>
                             <name>Updates available</name>
                             <priority>INFO</priority>
                         </trigger>
@@ -41,12 +41,12 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                 <item>
                     <uuid>c94ec880091e4e76bd5b9f9961b19333</uuid>
                     <name>Security Updates available</name>
-                    <key>ubuntu_updates.security</key>
+                    <key>debian_updates.security</key>
                     <value_type>FLOAT</value_type>
                     <triggers>
                         <trigger>
                             <uuid>777e69742fa0435db4e459127cbd6264</uuid>
-                            <expression>abs(last(/Debian Updates check/ubuntu_updates.security))&gt;0</expression>
+                            <expression>abs(last(/Debian Updates check/debian_updates.security))&gt;0</expression>
                             <name>Security Updates available</name>
                             <priority>INFO</priority>
                         </trigger>
@@ -65,7 +65,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     <calc_fnc>ALL</calc_fnc>
                     <item>
                         <host>Debian Updates check</host>
-                        <key>ubuntu_updates.package</key>
+                        <key>debian_updates.package</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -74,7 +74,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     <calc_fnc>ALL</calc_fnc>
                     <item>
                         <host>Debian Updates check</host>
-                        <key>ubuntu_updates.security</key>
+                        <key>debian_updates.security</key>
                     </item>
                 </graph_item>
             </graph_items>

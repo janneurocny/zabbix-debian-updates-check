@@ -22,12 +22,12 @@
                     {
                         "uuid": "6cf38624d40d4d248238531d48778768",
                         "name": "Updates available",
-                        "key": "ubuntu_updates.package",
+                        "key": "debian_updates.package",
                         "value_type": "FLOAT",
                         "triggers": [
                             {
                                 "uuid": "c746feebdf004dafbbbd9e2ec1a14d9e",
-                                "expression": "abs(last(/Debian Updates check/ubuntu_updates.package))>0",
+                                "expression": "abs(last(/Debian Updates check/debian_updates.package))>0",
                                 "name": "Updates available",
                                 "priority": "INFO"
                             }
@@ -36,12 +36,12 @@
                     {
                         "uuid": "c94ec880091e4e76bd5b9f9961b19333",
                         "name": "Security Updates available",
-                        "key": "ubuntu_updates.security",
+                        "key": "debian_updates.security",
                         "value_type": "FLOAT",
                         "triggers": [
                             {
                                 "uuid": "777e69742fa0435db4e459127cbd6264",
-                                "expression": "abs(last(/Debian Updates check/ubuntu_updates.security))>0",
+                                "expression": "abs(last(/Debian Updates check/debian_updates.security))>0",
                                 "name": "Security Updates available",
                                 "priority": "INFO"
                             }
@@ -60,7 +60,7 @@
                         "calc_fnc": "ALL",
                         "item": {
                             "host": "Debian Updates check",
-                            "key": "ubuntu_updates.package"
+                            "key": "debian_updates.package"
                         }
                     },
                     {
@@ -69,7 +69,7 @@
                         "calc_fnc": "ALL",
                         "item": {
                             "host": "Debian Updates check",
-                            "key": "ubuntu_updates.security"
+                            "key": "debian_updates.security"
                         }
                     }
                 ]
