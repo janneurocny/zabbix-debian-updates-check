@@ -37,7 +37,7 @@ zabbix_export:
               priority: INFO
   graphs:
     - uuid: 01fa78845aef4084831f36993f3bddf0
-      name: 'Linux Updates: Number of updates'
+      name: 'Debian Updates check: Number of updates'
       graph_items:
         - color: F63100
           calc_fnc: ALL

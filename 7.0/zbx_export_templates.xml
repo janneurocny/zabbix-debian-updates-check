@@ -58,7 +58,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
     <graphs>
         <graph>
             <uuid>01fa78845aef4084831f36993f3bddf0</uuid>
-            <name>Linux Updates: Number of updates</name>
+            <name>Debian Updates check: Number of updates</name>
             <graph_items>
                 <graph_item>
                     <color>F63100</color>
