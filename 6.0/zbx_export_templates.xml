@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2024-08-04T19:49:31Z</date>
+    <groups>
+        <group>
+            <uuid>846977d1dfed4968bc5f8bdb363285bc</uuid>
+            <name>Templates/Operating systems</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>a5c995b0c50f4130a638182157301c88</uuid>
+            <template>Debian Updates check</template>
+            <name>Debian Updates check</name>
+            <description>Template for Zabbix to check if in Debian based OS updates are available.
+
+Add user parameters to Agent config is required.
+
+UserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst
+UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security</description>
+            <groups>
+                <group>
+                    <name>Templates/Operating systems</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>150486066b2043e38ee763cd59755db6</uuid>
+                    <name>Updates available</name>
+                    <key>debian_updates.package</key>
+                    <value_type>FLOAT</value_type>
+                    <triggers>
+                        <trigger>
+                            <uuid>cbbd56526b0f4914bfd64cc65d686649</uuid>
+                            <expression>abs(last(/Debian Updates check/debian_updates.package))&gt;0</expression>
+                            <name>Updates available</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>8d5f166fa617460783a8f8167706d1a2</uuid>
+                    <name>Security Updates available</name>
+                    <key>debian_updates.security</key>
+                    <value_type>FLOAT</value_type>
+                    <triggers>
+                        <trigger>
+                            <uuid>c693d553c9b543eeb0d2b8c98937432a</uuid>
+                            <expression>abs(last(/Debian Updates check/debian_updates.security))&gt;0</expression>
+                            <name>Security Updates available</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>0194abccba8f4b7d9f3d685b62ebf2f5</uuid>
+            <name>Debian Updates check: Number of updates</name>
+            <graph_items>
+                <graph_item>
+                    <color>F63100</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Debian Updates check</host>
+                        <key>debian_updates.security</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>199C0D</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Debian Updates check</host>
+                        <key>debian_updates.package</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
