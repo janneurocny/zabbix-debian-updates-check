@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>6.0</version>
-    <date>2024-08-04T19:49:31Z</date>
+    <date>2024-10-21T21:28:31Z</date>
     <groups>
         <group>
             <uuid>846977d1dfed4968bc5f8bdb363285bc</uuid>
@@ -17,8 +17,8 @@
 
 Add user parameters to Agent config is required.
 
-UserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst
-UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security</description>
+UserParameter=debian_updates.package,apt-get update &gt; /dev/null 2&gt;&amp;1 &amp;&amp; apt-get upgrade -s | grep -c ^Inst
+UserParameter=debian_updates.security,apt-get update &gt; /dev/null 2&gt;&amp;1 &amp;&amp; apt-get upgrade -s | grep ^Inst | grep -c security</description>
             <groups>
                 <group>
                     <name>Templates/Operating systems</name>
@@ -29,6 +29,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     <uuid>150486066b2043e38ee763cd59755db6</uuid>
                     <name>Updates available</name>
                     <key>debian_updates.package</key>
+                    <delay>10m</delay>
                     <value_type>FLOAT</value_type>
                     <triggers>
                         <trigger>
@@ -43,6 +44,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     <uuid>8d5f166fa617460783a8f8167706d1a2</uuid>
                     <name>Security Updates available</name>
                     <key>debian_updates.security</key>
+                    <delay>10m</delay>
                     <value_type>FLOAT</value_type>
                     <triggers>
                         <trigger>

@@ -3,35 +3,37 @@
     <version>7.0</version>
     <template_groups>
         <template_group>
-            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
-            <name>Templates</name>
+            <uuid>846977d1dfed4968bc5f8bdb363285bc</uuid>
+            <name>Templates/Operating systems</name>
         </template_group>
     </template_groups>
     <templates>
         <template>
-            <uuid>300e561d0bd64be29b922ebf20f218e4</uuid>
+            <uuid>a5c995b0c50f4130a638182157301c88</uuid>
             <template>Debian Updates check</template>
             <name>Debian Updates check</name>
             <description>Template for Zabbix to check if in Debian based OS updates are available.
 
 Add user parameters to Agent config is required.
 
-UserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst
-UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security</description>
+UserParameter=debian_updates.package,apt-get update &gt; /dev/null 2&gt;&amp;1 &amp;&amp; apt-get upgrade -s | grep -c ^Inst
+UserParameter=debian_updates.security,apt-get update &gt; /dev/null 2&gt;&amp;1 &amp;&amp; apt-get upgrade -s | grep ^Inst | grep -c security</description>
             <groups>
                 <group>
-                    <name>Templates</name>
+                    <name>Templates/Operating systems</name>
                 </group>
             </groups>
             <items>
                 <item>
-                    <uuid>6cf38624d40d4d248238531d48778768</uuid>
+                    <uuid>150486066b2043e38ee763cd59755db6</uuid>
                     <name>Updates available</name>
                     <key>debian_updates.package</key>
+                    <delay>10m</delay>
+                    <history>90d</history>
                     <value_type>FLOAT</value_type>
                     <triggers>
                         <trigger>
-                            <uuid>c746feebdf004dafbbbd9e2ec1a14d9e</uuid>
+                            <uuid>cbbd56526b0f4914bfd64cc65d686649</uuid>
                             <expression>abs(last(/Debian Updates check/debian_updates.package))&gt;0</expression>
                             <name>Updates available</name>
                             <priority>INFO</priority>
@@ -39,13 +41,15 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     </triggers>
                 </item>
                 <item>
-                    <uuid>c94ec880091e4e76bd5b9f9961b19333</uuid>
+                    <uuid>8d5f166fa617460783a8f8167706d1a2</uuid>
                     <name>Security Updates available</name>
                     <key>debian_updates.security</key>
+                    <delay>10m</delay>
+                    <history>90d</history>
                     <value_type>FLOAT</value_type>
                     <triggers>
                         <trigger>
-                            <uuid>777e69742fa0435db4e459127cbd6264</uuid>
+                            <uuid>c693d553c9b543eeb0d2b8c98937432a</uuid>
                             <expression>abs(last(/Debian Updates check/debian_updates.security))&gt;0</expression>
                             <name>Security Updates available</name>
                             <priority>INFO</priority>
@@ -57,7 +61,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
     </templates>
     <graphs>
         <graph>
-            <uuid>01fa78845aef4084831f36993f3bddf0</uuid>
+            <uuid>0194abccba8f4b7d9f3d685b62ebf2f5</uuid>
             <name>Debian Updates check: Number of updates</name>
             <graph_items>
                 <graph_item>
@@ -65,7 +69,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     <calc_fnc>ALL</calc_fnc>
                     <item>
                         <host>Debian Updates check</host>
-                        <key>debian_updates.package</key>
+                        <key>debian_updates.security</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -74,7 +78,7 @@ UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c 
                     <calc_fnc>ALL</calc_fnc>
                     <item>
                         <host>Debian Updates check</host>
-                        <key>debian_updates.security</key>
+                        <key>debian_updates.package</key>
                     </item>
                 </graph_item>
             </graph_items>

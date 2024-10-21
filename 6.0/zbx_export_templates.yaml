@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2024-08-04T19:49:15Z'
+  date: '2024-10-21T21:28:24Z'
   groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
       name: 'Templates/Operating systems'
@@ -13,14 +13,15 @@ zabbix_export:
         
         Add user parameters to Agent config is required.
         
-        UserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst
-        UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security
+        UserParameter=debian_updates.package,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep -c ^Inst
+        UserParameter=debian_updates.security,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep ^Inst | grep -c security
       groups:
         - name: 'Templates/Operating systems'
       items:
         - uuid: 150486066b2043e38ee763cd59755db6
           name: 'Updates available'
           key: debian_updates.package
+          delay: 10m
           value_type: FLOAT
           triggers:
             - uuid: cbbd56526b0f4914bfd64cc65d686649
@@ -30,6 +31,7 @@ zabbix_export:
         - uuid: 8d5f166fa617460783a8f8167706d1a2
           name: 'Security Updates available'
           key: debian_updates.security
+          delay: 10m
           value_type: FLOAT
           triggers:
             - uuid: c693d553c9b543eeb0d2b8c98937432a

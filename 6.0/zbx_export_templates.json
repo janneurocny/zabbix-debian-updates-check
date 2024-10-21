@@ -1,7 +1,7 @@
 {
     "zabbix_export": {
         "version": "6.0",
-        "date": "2024-08-04T19:49:34Z",
+        "date": "2024-10-21T21:28:36Z",
         "groups": [
             {
                 "uuid": "846977d1dfed4968bc5f8bdb363285bc",
@@ -13,7 +13,7 @@
                 "uuid": "a5c995b0c50f4130a638182157301c88",
                 "template": "Debian Updates check",
                 "name": "Debian Updates check",
-                "description": "Template for Zabbix to check if in Debian based OS updates are available.\n\nAdd user parameters to Agent config is required.\n\nUserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst\nUserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security",
+                "description": "Template for Zabbix to check if in Debian based OS updates are available.\n\nAdd user parameters to Agent config is required.\n\nUserParameter=debian_updates.package,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep -c ^Inst\nUserParameter=debian_updates.security,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep ^Inst | grep -c security",
                 "groups": [
                     {
                         "name": "Templates/Operating systems"
@@ -24,6 +24,7 @@
                         "uuid": "150486066b2043e38ee763cd59755db6",
                         "name": "Updates available",
                         "key": "debian_updates.package",
+                        "delay": "10m",
                         "value_type": "FLOAT",
                         "triggers": [
                             {
@@ -38,6 +39,7 @@
                         "uuid": "8d5f166fa617460783a8f8167706d1a2",
                         "name": "Security Updates available",
                         "key": "debian_updates.security",
+                        "delay": "10m",
                         "value_type": "FLOAT",
                         "triggers": [
                             {

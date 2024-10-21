@@ -3,30 +3,32 @@
         "version": "7.0",
         "template_groups": [
             {
-                "uuid": "7df96b18c230490a9a0a9e2307226338",
-                "name": "Templates"
+                "uuid": "846977d1dfed4968bc5f8bdb363285bc",
+                "name": "Templates/Operating systems"
             }
         ],
         "templates": [
             {
-                "uuid": "300e561d0bd64be29b922ebf20f218e4",
+                "uuid": "a5c995b0c50f4130a638182157301c88",
                 "template": "Debian Updates check",
                 "name": "Debian Updates check",
-                "description": "Template for Zabbix to check if in Debian based OS updates are available.\n\nAdd user parameters to Agent config is required.\n\nUserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst\nUserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security",
+                "description": "Template for Zabbix to check if in Debian based OS updates are available.\n\nAdd user parameters to Agent config is required.\n\nUserParameter=debian_updates.package,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep -c ^Inst\nUserParameter=debian_updates.security,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep ^Inst | grep -c security",
                 "groups": [
                     {
-                        "name": "Templates"
+                        "name": "Templates/Operating systems"
                     }
                 ],
                 "items": [
                     {
-                        "uuid": "6cf38624d40d4d248238531d48778768",
+                        "uuid": "150486066b2043e38ee763cd59755db6",
                         "name": "Updates available",
                         "key": "debian_updates.package",
+                        "delay": "10m",
+                        "history": "90d",
                         "value_type": "FLOAT",
                         "triggers": [
                             {
-                                "uuid": "c746feebdf004dafbbbd9e2ec1a14d9e",
+                                "uuid": "cbbd56526b0f4914bfd64cc65d686649",
                                 "expression": "abs(last(/Debian Updates check/debian_updates.package))>0",
                                 "name": "Updates available",
                                 "priority": "INFO"
@@ -34,13 +36,15 @@
                         ]
                     },
                     {
-                        "uuid": "c94ec880091e4e76bd5b9f9961b19333",
+                        "uuid": "8d5f166fa617460783a8f8167706d1a2",
                         "name": "Security Updates available",
                         "key": "debian_updates.security",
+                        "delay": "10m",
+                        "history": "90d",
                         "value_type": "FLOAT",
                         "triggers": [
                             {
-                                "uuid": "777e69742fa0435db4e459127cbd6264",
+                                "uuid": "c693d553c9b543eeb0d2b8c98937432a",
                                 "expression": "abs(last(/Debian Updates check/debian_updates.security))>0",
                                 "name": "Security Updates available",
                                 "priority": "INFO"
@@ -52,7 +56,7 @@
         ],
         "graphs": [
             {
-                "uuid": "01fa78845aef4084831f36993f3bddf0",
+                "uuid": "0194abccba8f4b7d9f3d685b62ebf2f5",
                 "name": "Debian Updates check: Number of updates",
                 "graph_items": [
                     {
@@ -60,7 +64,7 @@
                         "calc_fnc": "ALL",
                         "item": {
                             "host": "Debian Updates check",
-                            "key": "debian_updates.package"
+                            "key": "debian_updates.security"
                         }
                     },
                     {
@@ -69,7 +73,7 @@
                         "calc_fnc": "ALL",
                         "item": {
                             "host": "Debian Updates check",
-                            "key": "debian_updates.security"
+                            "key": "debian_updates.package"
                         }
                     }
                 ]
