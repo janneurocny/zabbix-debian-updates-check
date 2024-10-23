@@ -1,4 +1,4 @@
-# Debain Updates check for Zabbix
+# Debian Updates check for Zabbix
 Template for Zabbix to check if in Debian based OS updates are available.
 
 ## Configuration
@@ -6,8 +6,8 @@ Template for Zabbix to check if in Debian based OS updates are available.
 In */etc/zabbix/zabbix_agentd.conf* in section *"Option: UserParameter"* add following lines:
 
 ```
-UserParameter=debian_updates.package,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep -c ^Inst
-UserParameter=debian_updates.security,apt-get update > /dev/null 2>&1 && apt-get upgrade -s | grep ^Inst | grep -c security
+UserParameter=debian_updates.package,apt-get upgrade -s | grep -c ^Inst
+UserParameter=debian_updates.security,apt-get upgrade -s | grep ^Inst | grep -c security
 ```
 
 Restart Zabbix Agent
